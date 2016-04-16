@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!-- start: Css -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/bootstrap.min.css"/>
+        <!-- plugins -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/datatables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/animate.min.css"/>
+        <link href="../asset/css/style.css" rel="stylesheet"/>
+        <!-- end: Css -->
+    </h:head>
+    <h:body id="mimin" class="dashboard">
+        <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+            <div class="col-md-12 nav-wrapper">
+                <div class="navbar-header" style="width:100%;">
+                    <a href="index.html" class="navbar-brand"> 
+                        <b>
+                            <h:outputLabel id="username" value="#{accountManagedBean.username}"/>
+                        </b>
+                    </a>
+
+                    <ul class="nav navbar-nav navbar-right user-nav">
+                        <li><a>
+                                <h:form>
+                                    <h:commandButton action="#{accountManagedBean.logout()}" value="Logout"/>
+                                </h:form>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- end: Header -->
+
+        <div class="container-fluid mimin-wrapper">
+
+            <!-- start:Left Menu -->
+            <div id="left-menu">
+                <div class="sub-left-menu scroll">
+                    <ul class="nav nav-list">
+                        <li class="user-name">
+                            <span>
+                                Welcome #{session.getAttribute("username")}
+                            </span>
+                        </li>
+                        <li class="ripple">
+                            <a href="staff.xhtml"> Main 
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="room.xhtml"> Manage Room
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="customer.xhtml"> Manage Customer
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="active ripple">
+                            <a href="promotion.xhtml"> Manage promotion  
+                                <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                        </li>
+                        
+                        <li class="ripple">
+                            <a href="profile.xhtml"> Profile
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- end: Left Menu -->
+
+            <!-- start: Content -->
+            <div id="content">
+                <div class="col-md-12 top-20 padding-0">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <!--form table -->
+                            <h:form>
+
+                                <p:panelGrid columns="2">
+                                    <f:facet name="header">Add New Promotion</f:facet>
+                                    <h:outputLabel for="name" value="Name :"/>
+                                    <h:inputText id="name" value="#{promtionManagedBean.promotionName}"/>
+
+                                    <h:outputLabel for="dateStart" value="Start Date :"/>
+                                    <p:calendar value="#{promtionManagedBean.starDate}" pattern="d-MM-yyyy" 
+                                                mindate="#{promtionManagedBean.currentDate}">
+                                        <f:convertDateTime pattern="d-M-yyyy" timeZone="GMT+7"/>
+                                    </p:calendar>
+
+                                    <h:outputLabel for="dateEnd" value="End Date :"/>
+                                    <p:calendar value="#{promtionManagedBean.endDate}" pattern="d-MM-yyyy"
+                                                mindate="#{promtionManagedBean.currentDate}">
+                                        <f:convertDateTime pattern="d-M-yyyy" timeZone="GMT+7"/>
+                                    </p:calendar>
+
+                                    <h:outputLabel for="descrip" value="Description :"/>
+                                    <h:inputTextarea id="descrip" value="#{promtionManagedBean.description}"/>
+
+                                    <h:outputLabel/>
+                                    <h:commandButton value="Add" action="#{promtionManagedBean.addPromotion()}" />
+
+                                </p:panelGrid>
+
+                            </h:form>
+                            <h:form id="form">
+                                <p:dataTable id="singleDT" var="p" value="#{promtionManagedBean.findAllPromotion()}" selectionMode="single" 
+                                             selection="#{promtionManagedBean.selectPromotion}" rowKey="#{p.promotionId}"  rows="10" paginator="true">
+                                    <p:column headerText="Id">
+                                        #{p.promotionId}
+                                    </p:column>
+                                    <p:column headerText="Name">
+                                        #{p.promotionName}
+                                    </p:column>
+                                    <p:column headerText="Start Date">
+                                        <p:outputLabel value="#{p.starDate}">
+                                            <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                        </p:outputLabel>                                       
+                                    </p:column>
+                                    <p:column headerText="End Date">
+                                        <p:outputLabel value="#{p.endDate}">
+                                            <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                        </p:outputLabel>                                       
+                                    </p:column>                                    
+                                    <p:column headerText="Action">
+                                        <p:commandButton value="Edit And Delete" action="#{promtionManagedBean.editPromotion(p.promotionId)}"
+                                                         process="singleDT" update=":form:editDetail" icon="ui-icon-edit" 
+                                                         oncomplete="PF('editDialog').show()"/>
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton process="singleDT" update=":form:proDetail" icon="ui-icon-search" value="View" oncomplete="PF('proDialog').show()" />
+
+                                    </f:facet>
+                                </p:dataTable>
+
+
+                                <!--View room-->
+                                <p:dialog header="Promotion Info" widgetVar="proDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:outputPanel id="proDetail" style="text-align:center;">
+                                        <p:panelGrid  columns="2" rendered="#{not empty promtionManagedBean.selectPromotion}">
+
+                                            <h:outputText value="Id:" />
+                                            <h:inputText value="#{promtionManagedBean.selectPromotion.promotionId}" />
+
+                                            <h:outputText value="Name" />
+                                            <h:inputText value="#{promtionManagedBean.selectPromotion.promotionName}" />                                            
+
+                                            <h:outputText value="Start Date " />
+                                            <h:inputText value="#{promtionManagedBean.selectPromotion.starDate}">
+                                                <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                            </h:inputText>
+
+                                            <h:outputText value="End Date " />
+                                            <h:inputText value="#{promtionManagedBean.selectPromotion.endDate}">
+                                                <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                            </h:inputText>
+
+                                            <h:outputText value="Description" />
+                                            <h:inputTextarea value="#{promtionManagedBean.selectPromotion.description}" /> 
+
+                                        </p:panelGrid>
+                                    </p:outputPanel>
+                                </p:dialog>
+
+                                <p:dialog header="Customer Info" widgetVar="editDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:outputPanel id="editDetail" style="text-align:center;">
+                                        <p:panelGrid  columns="2">                                            
+                                            
+                                            <h:outputLabel for="proId" value="Id :"/>
+                                            <h:inputText id="proId" value="#{promtionManagedBean.promotionId}"/>
+                                            
+                                            <h:outputLabel for="pname" value="Name :"/>
+                                            <h:inputText id="pname" value="#{promtionManagedBean.promotionName}"/>
+
+                                            <h:outputLabel for="pdateStart" value="Start Date :"/>
+                                            <p:calendar value="#{promtionManagedBean.starDate}" pattern="d-MM-yyyy">
+                                                <f:convertDateTime pattern="d-M-yyyy" timeZone="GMT+7"/>
+                                            </p:calendar>
+
+                                            <h:outputLabel for="pdateEnd" value="End Date :"/>
+                                            <p:calendar value="#{promtionManagedBean.endDate}" pattern="d-MM-yyyy">
+                                                <f:convertDateTime pattern="d-M-yyyy" timeZone="GMT+7"/>
+                                            </p:calendar>
+
+                                            <h:outputLabel for="pdescrip" value="Description :"/>
+                                            <h:inputTextarea id="descrip" value="#{promtionManagedBean.description}"/>
+
+                                            <h:commandButton value="Edit" action="#{promtionManagedBean.edit()}"/>
+                                            <h:commandButton value="Delete" action="#{promtionManagedBean.deletePromotion(promtionManagedBean.promotionId)}"/>
+                                        </p:panelGrid>
+                                    </p:outputPanel>
+                                </p:dialog>
+
+                            </h:form>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <!-- end: content -->
+
+
+        <!-- start: Javascript -->
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/jquery.ui.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+
+        <!-- plugins -->
+        <script src="../js/plugins/moment.min.js"></script>
+        <script src="../js/plugins/jquery.datatables.min.js"></script>
+        <script src="../js/plugins/datatables.bootstrap.min.js"></script>
+        <script src="../js/plugins/jquery.nicescroll.js"></script>
+        <script>
+            function myFunction() {
+                location.reload();
+            }
+        </script>
+    </h:body>
+</html>
+

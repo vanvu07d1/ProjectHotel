@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!-- start: Css -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/bootstrap.min.css"/>
+        <!-- plugins -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/datatables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/animate.min.css"/>
+        <link href="../asset/css/style.css" rel="stylesheet"/>
+        <!-- end: Css -->
+    </h:head>
+    <h:body id="mimin" class="dashboard">
+        <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+            <div class="col-md-12 nav-wrapper">
+                <div class="navbar-header" style="width:100%;">
+                    <a href="index.html" class="navbar-brand"> 
+                        <b>
+                            <h:outputLabel id="username" value="#{accountManagedBean.username}"/>
+                        </b>
+                    </a>
+
+                    <ul class="nav navbar-nav navbar-right user-nav">
+                        <li><a>
+                                <h:form>
+                                    <h:commandButton action="#{accountManagedBean.logout()}" value="Logout"/>
+                                </h:form>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- end: Header -->
+
+        <div class="container-fluid mimin-wrapper">
+
+            <!-- start:Left Menu -->
+            <div id="left-menu">
+                <div class="sub-left-menu scroll">
+                    <ul class="nav nav-list">
+                        <li class="user-name">
+                            <span>
+                                Welcome #{session.getAttribute("username")}
+                            </span>
+                        </li>
+                        <li class="ripple">
+                            <a href="receptionist.xhtml"> Main 
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="booking.xhtml"> Booking room
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="manageBooking.xhtml"> Manage Booking
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="checkin.xhtml"> Check in
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="managecheckin.xhtml"> Manage Check in
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="checkout.xhtml"> Check out 
+                                <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="service.xhtml"> Service  
+                                <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                        </li>
+                        <li class="active ripple">
+                            <a href="usedservice.xhtml"> Use Service
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="profile.xhtml"> Profile
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- end: Left Menu -->
+
+            <!-- start: Content -->
+            <div id="content">
+                <div class="col-md-12 top-20 padding-0">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <h:form>
+                                <p:panelGrid>
+                                    <f:facet name="header">
+                                        <p:row>
+                                            <p:column colspan="4">Used Service</p:column>
+                                        </p:row>
+                                    </f:facet>
+
+                                    <p:row>
+                                        <p:column>Room Name</p:column>
+                                        <p:column>
+                                            <h:inputText value="#{usedServiceManagedBean.roomName}"/>
+                                        </p:column>
+
+                                        <p:column>Date Used</p:column>
+                                        <p:column>
+                                            <p:calendar value="#{usedServiceManagedBean.dateUsed}"
+                                                        pattern="d-MM-yyyy">
+                                            </p:calendar>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>Service Name</p:column>
+                                        <p:column>
+                                            <h:selectOneMenu value="#{usedServiceManagedBean.serviceName}">
+                                                <f:selectItems value="#{serviceManagedBean.findAllService()}" var="s"
+                                                               itemLabel="#{s.serviceName}" itemValue="#{s.serviceName}"/>
+                                            </h:selectOneMenu>
+                                        </p:column>
+
+                                        <p:column>Amount</p:column>
+                                        <p:column>
+                                            <h:inputText value="#{usedServiceManagedBean.amount}"/>
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <h:commandButton value="Add" action="#{usedServiceManagedBean.addUsedService()}"/>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </h:form>
+                            <h:form id="form">
+                                <p:dataTable id="used" paginator="true" rows="10"
+                                             var="u" value="#{usedServiceManagedBean.findAll()}">
+                                    <p:column headerText="Id">
+                                        #{u.usedServiceId}
+                                    </p:column>
+                                    <p:column headerText="Customer Name">
+                                        #{u.checkinId.customerId.name}
+                                    </p:column>
+                                    <p:column headerText="Room Name">
+                                        #{u.checkinId.roomId.roomName}
+                                    </p:column>
+                                    <p:column headerText="Service Name">
+                                        #{u.serviceId.serviceName}
+                                    </p:column>
+                                    <p:column headerText="Amount">
+                                        #{u.amount}
+                                    </p:column>
+                                    <p:column headerText="Total Price">
+                                        <h:outputLabel value="#{u.totalPrice}">
+                                            <f:convertNumber currencySymbol="$" type="currency" />
+                                        </h:outputLabel>
+                                    </p:column>
+                                    <p:column headerText="Date Used">
+                                        <h:outputLabel value="#{u.dateUsed}">
+                                            <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                        </h:outputLabel>
+                                    </p:column>
+                                    <p:column>
+                                        <p:commandButton value="Edit and Delete" action="#{usedServiceManagedBean.findById(u.usedServiceId)}"
+                                                         process="used" update=":form:useDetail" icon="ui-icon-edit" 
+                                                         oncomplete="PF('useDialog').show()"/>
+                                    </p:column>
+                                </p:dataTable>
+
+                                <p:dialog header="Used Info" widgetVar="useDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:outputPanel id="useDetail" style="text-align:center;">
+                                        <p:panelGrid columns="4">
+
+                                            <h:outputText value="Id:" />
+                                            <h:inputText value="#{usedServiceManagedBean.usedServiceId}" />
+
+                                            <h:outputText value="Room Name" />
+                                            <h:inputText value="#{usedServiceManagedBean.roomName}" />
+
+                                            <h:outputText value="Customer Name" />
+                                            <h:inputText value="#{usedServiceManagedBean.customerName}" />
+
+                                            <h:outputText value="Service Name" />
+                                            <h:inputText value="#{usedServiceManagedBean.serviceName}" />
+
+                                            <h:outputText value="Amount" />
+                                            <h:inputText value="#{usedServiceManagedBean.amount}" />
+
+                                            <h:outputText value="Total Price" />
+                                            <h:inputText value="#{usedServiceManagedBean.totalPrice}" />
+
+                                            <h:outputText value="Date Used" />
+                                            <p:calendar value="#{usedServiceManagedBean.dateUsed}" pattern="d-MM-yyyy">
+                                            </p:calendar>
+                                            
+                                            <h:outputText value="CheckinId" />
+                                            <h:inputText value="#{usedServiceManagedBean.inId}" />
+                                            
+                                            <h:inputHidden></h:inputHidden>
+
+                                            <h:commandButton value="Edit" action="#{usedServiceManagedBean.edit()}"/>
+                                            <h:commandButton value="Delete" action="#{usedServiceManagedBean.deleteUsed
+                                                                                      (usedServiceManagedBean.usedServiceId)}"/>
+
+                                        </p:panelGrid>
+                                    </p:outputPanel>
+                                </p:dialog>
+                            </h:form>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <!-- end: content -->
+
+
+        <!-- start: Javascript -->
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/jquery.ui.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+
+        <!-- plugins -->
+        <script src="../js/plugins/moment.min.js"></script>
+        <script src="../js/plugins/jquery.datatables.min.js"></script>
+        <script src="../js/plugins/datatables.bootstrap.min.js"></script>
+        <script src="../js/plugins/jquery.nicescroll.js"></script>
+
+        <!-- custom -->
+        <script src="../js/main.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#datatables-example').DataTable();
+            });
+        </script>
+        <!-- end: Javascript -->
+    </h:body>
+</html>
+

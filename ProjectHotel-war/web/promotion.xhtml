@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>SKY HOTEL</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'/>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link href="css/procss.css" rel="stylesheet" type="text/css" media="all"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <script src="js/jquery.min.js"></script>
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="top-header">
+                <div class="container">
+                    <div class="logo">
+                        <a href="index.html"><img src="images/logo.png"/></a>
+                    </div>
+                    <span class="menu"> </span>
+                    <div class="m-clear"></div>
+                    <div class="top-menu">
+                        <ul>
+                            <li><a class="scroll" href="index.html">HOME</a></li>
+                            <li><a class="scroll" href="aboutsky.html">ABOUT SKY</a></li>
+                            <li><a class="scroll" href="booking.xhtml">BOOKING</a></li>
+                            <li class="active"><a href="promotion.xhtml">PROMOTION</a></li>
+                            <li><a class="scroll" href="login.xhtml">LOGIN</a></li>
+                        </ul>
+                        <script>
+                            $("span.menu").click(function () {
+                                $(".top-menu ul").slideToggle(200);
+                            });
+                        </script>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="banner">
+                <div class="banner-info text-center">
+                    <h1>SKY HOTEL</h1>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <div class="package text-center">
+            <div class="container">
+                <h:form>
+                    <p:accordionPanel value="#{promtionManagedBean.findAllPromotion()}" var="p">
+                        <p:tab title="#{p.promotionName}" >
+                            <h:panelGrid columns="2">
+
+                                <h:outputText value="Start Date" style="font-weight: bold" />
+                                <h:outputText value="#{p.starDate}">
+                                    <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                </h:outputText>
+
+                                <h:outputText value="End Date" style="font-weight: bold" />
+                                <h:outputText value="#{p.endDate}">
+                                    <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                </h:outputText>
+
+                                <h:outputText value="Description" style="font-weight: bold" />
+                                <h:outputText value="#{p.description}" />
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                </h:form>
+
+            </div>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,355 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!-- start: Css -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/bootstrap.min.css"/>
+        <!-- plugins -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/datatables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/animate.min.css"/>
+        <link href="../asset/css/style.css" rel="stylesheet"/>
+        <!-- end: Css -->
+    </h:head>
+    <h:body id="mimin" class="dashboard">
+        <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+            <div class="col-md-12 nav-wrapper">
+                <div class="navbar-header" style="width:100%;">
+                    <a href="index.html" class="navbar-brand"> 
+                        <b>
+                            <h:outputLabel id="username" value="#{accountManagedBean.username}"/>
+                        </b>
+                    </a>
+
+                    <ul class="nav navbar-nav navbar-right user-nav">
+                        <li><a>
+                                <h:form>
+                                    <h:commandButton action="#{accountManagedBean.logout()}" value="Logout"/>
+                                </h:form>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- end: Header -->
+
+        <div class="container-fluid mimin-wrapper">
+
+            <!-- start:Left Menu -->
+            <div id="left-menu">
+                <div class="sub-left-menu scroll">
+                    <ul class="nav nav-list">
+                        <li class="user-name">
+                            <span>
+                                Welcome #{session.getAttribute("username")}
+                            </span>
+                        </li>
+                        <li class="ripple">
+                            <a href="receptionist.xhtml"> Main 
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="booking.xhtml"> Booking room
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="manageBooking.xhtml"> Manage Booking
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="checkin.xhtml"> Check in
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="managecheckin.xhtml"> Manage Check in
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="active ripple">
+                            <a href="checkout.xhtml"> Check out 
+                                <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="service.xhtml"> Service  
+                                <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="usedservice.xhtml"> Use Service
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="profile.xhtml"> Profile
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- end: Left Menu -->
+
+            <!-- start: Content -->
+            <div id="content">
+                <div class="col-md-12 top-20 padding-0">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <h:form id="form">
+                                <p:dataTable id="checkout" var="c" value="#{checkinManagedBean.findAll()}" rows="10" paginator="true">
+                                    <f:facet name="header">List Checkin</f:facet>
+                                    <p:column headerText="Checkin Id">
+                                        #{c.checkinId}
+                                    </p:column>
+                                    <p:column headerText="Room Name">
+                                        #{c.roomId.roomName}
+                                    </p:column>
+                                    <p:column headerText="Checkin Id">
+                                        #{c.customerId.name}
+                                    </p:column>
+                                    <p:column headerText="Date Id">
+                                        <h:outputText value="#{c.dateIn}">
+                                            <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Date Out">
+                                        <h:outputText value="#{c.dateOut}">
+                                            <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <p:commandButton value="Checkout" action="#{checkoutManagedBean.newCheckout(c.checkinId)}"
+                                                         process="checkout" update=":form:checkoutDetail" icon="ui-icon-edit" 
+                                                         oncomplete="PF('checkoutDialog').show()"/>
+                                    </p:column>
+                                </p:dataTable>
+
+                                <p:dialog id="print" header="Checkout Info" widgetVar="checkoutDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:scrollPanel style="height:500px" mode="native" >
+                                        <p:outputPanel id="checkoutDetail" style="text-align:center;" >
+                                            <p:panelGrid >
+
+                                                <p:row>
+                                                    <p:column colspan="8" style="font-weight: bold;color: #00c">
+                                                        Customer information
+                                                    </p:column>
+                                                </p:row>
+
+                                                <p:row>
+                                                    <p:column style="font-weight: bold;">Customer Name</p:column>
+                                                    <p:column>
+                                                        <h:inputText value="#{checkoutManagedBean.checkin.customerId.name}" disabled="true"/>
+                                                    </p:column>            
+                                                    <p:column style="font-weight: bold;">Gender</p:column>
+                                                    <p:column>
+                                                        <h:inputText value="#{checkoutManagedBean.checkin.customerId.gender}" disabled="true"/>
+                                                    </p:column>  
+                                                    <p:column style="font-weight: bold;">DOB</p:column>
+                                                    <p:column>
+                                                        <p:calendar value="#{checkoutManagedBean.checkin.customerId.dob}" pattern="d-MM-yyyy"
+                                                                    timeZone="GMT+7" disabled="true">
+
+                                                        </p:calendar> 
+                                                    </p:column>
+                                                    <p:column style="font-weight: bold;">Idcrad</p:column>
+                                                    <p:column>
+                                                        <h:inputText value="#{checkoutManagedBean.checkin.customerId.idCard}" disabled="true"/>
+                                                    </p:column>  
+                                                </p:row>
+
+                                                <p:row>
+                                                    <p:column style="font-weight: bold;">Tel</p:column>
+                                                    <p:column>
+                                                        <h:inputText value="#{checkoutManagedBean.checkin.customerId.tel}" disabled="true"/>
+                                                    </p:column>
+                                                    <p:column style="font-weight: bold;">Address</p:column>
+                                                    <p:column>
+                                                        <h:inputText value="#{checkoutManagedBean.checkin.customerId.address}" disabled="true"/>
+                                                    </p:column>  
+                                                    <p:column style="font-weight: bold;">Email</p:column>
+                                                    <p:column>
+                                                        <h:inputText value="#{checkoutManagedBean.checkin.customerId.email}" disabled="true"/>
+                                                    </p:column>                                                  
+                                                </p:row>                                                
+
+                                                <p:row>
+                                                    <p:column colspan="8" style="font-weight: bold;color: #00c">
+                                                        Checkout information
+                                                    </p:column>
+                                                </p:row>
+
+                                                <p:row>
+                                                    <p:column style="font-weight: bold;">Room Name</p:column>
+                                                    <p:column style="font-weight: bold;">Date In</p:column>
+                                                    <p:column style="font-weight: bold;">Date Out</p:column>
+                                                    <p:column style="font-weight: bold;">Day</p:column>
+                                                    <p:column style="font-weight: bold;">Price</p:column>
+                                                    <p:column style="font-weight: bold;">Amount</p:column>
+                                                </p:row>
+
+                                                <p:row>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.checkin.roomId.roomName}"/>
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.checkin.dateIn}">
+                                                            <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.checkin.dateOut}">
+                                                            <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.checkin.outOfTime}"/>
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.checkin.roomId.roomTypeId.price}">
+                                                            <f:convertNumber currencySymbol="$" type="currency" />
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.amountRoom}">
+                                                            <f:convertNumber currencySymbol="$" type="currency" />
+                                                        </h:outputText>
+                                                    </p:column>                                                                                                 
+                                                </p:row>
+
+                                                <p:row>
+                                                    <p:column colspan="8" style="font-weight: bold;color: #00c">
+                                                        Service information
+                                                    </p:column>
+                                                </p:row>
+
+                                                <p:row>
+                                                    <p:column colspan="8">
+                                                        <p:dataTable var="item" value="#{checkoutManagedBean.checkin.usedserviceList}">
+                                                            <p:column headerText="Date Used">
+                                                                <h:outputText value="#{item.dateUsed}">
+                                                                    <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                                                </h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Service Name">
+                                                                #{item.serviceId.serviceName}
+                                                            </p:column>
+                                                            <p:column headerText="Quantity">
+                                                                #{item.amount}
+                                                            </p:column>
+                                                            <p:column headerText="Unit Price">
+                                                                <h:outputText value="#{item.amount}">
+                                                                    <f:convertNumber currencySymbol="$" type="currency" />
+                                                                </h:outputText>
+                                                            </p:column>
+                                                            <p:column headerText="Amount">
+                                                                <h:outputText value="#{item.totalPrice}">
+                                                                    <f:convertNumber currencySymbol="$" type="currency" />
+                                                                </h:outputText>
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:column>
+                                                </p:row>
+                                                
+                                                <p:row>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column>Amount :</p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.amount}">
+                                                            <f:convertNumber  type="currency" currencySymbol="$" />
+                                                        </h:outputText>
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column>Tax :</p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.checkin.tax}">
+                                                            <f:convertNumber type="percent"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column>Discount :</p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.checkin.discount}">
+                                                            <f:convertNumber type="percent"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column>Total :</p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{checkoutManagedBean.total}">
+                                                            <f:convertNumber currencySymbol="$" type="currency"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    <p:column></p:column>
+                                                    
+                                                </p:row>
+
+                                            </p:panelGrid>
+                                        </p:outputPanel>
+                                    </p:scrollPanel>
+                                </p:dialog>  
+                            </h:form>
+
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <!-- end: content -->
+
+
+        <!-- start: Javascript -->
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/jquery.ui.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+
+        <!-- plugins -->
+        <script src="../js/plugins/moment.min.js"></script>
+        <script src="../js/plugins/jquery.datatables.min.js"></script>
+        <script src="../js/plugins/datatables.bootstrap.min.js"></script>
+        <script src="../js/plugins/jquery.nicescroll.js"></script>
+
+        <!-- custom -->
+        <script src="../js/main.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#datatables-example').DataTable();
+            });
+        </script>
+        <!-- end: Javascript -->
+    </h:body>
+</html>
+

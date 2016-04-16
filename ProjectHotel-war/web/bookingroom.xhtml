@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>SKY HOTEL</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'/>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+        
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="top-header">
+                <div class="container">
+                    <div class="logo">
+                        <a href="index.html"><img src="images/logo.png"/></a>
+                    </div>
+                    <span class="menu"> </span>
+                    <div class="m-clear"></div>
+                    <div class="top-menu">
+                        <ul>
+                            <li><a class="scroll" href="index.html">HOME</a></li>
+                            <li><a class="scroll" href="aboutsky.html">ABOUT SKY</a></li>
+                            <li class="active"><a href="booking.xhtml">BOOKING</a></li>
+                            <li><a class="scroll" href="promotion.xhtml">Promotion</a></li>
+                            <li><a class="scroll" href="login.xhtml">LOGIN</a></li>
+                        </ul>
+                        <script>
+                            $("span.menu").click(function () {
+                                $(".top-menu ul").slideToggle(200);
+                            });
+                        </script>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="banner">
+                <div class="banner-info text-center">
+                    <h1>SKY HOTEL</h1>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <div class="online_reservation">
+            <div class="b_room">
+                <div class="booking_room">
+                    <div class="reservation">
+                        <ul>
+                            <h:form>
+                                <li  class="span1_of_1 left">
+                                    <h5>Date in</h5>
+                                    <div class="book_date">
+                                        <h:inputText id="startdate" value="#{reservationManagedBean.start}" 
+                                                     required="true"
+                                                     label="Date" >
+                                            <f:convertDateTime pattern="d-M-yyyy" timeZone="GMT+7"/>
+                                        </h:inputText>
+                                    </div>					
+                                </li>
+                                <li  class="span1_of_1 left">
+                                    <h5>Date out</h5>
+                                    <div class="book_date">
+                                        <h:inputText id="enddate" value="#{reservationManagedBean.end}" 
+                                                     required="true"
+                                                     label="Date" >
+                                            <f:convertDateTime pattern="d-M-yyyy" timeZone="GMT+7"/>
+                                        </h:inputText> 
+                                    </div>		
+                                </li>
+                                <li  class="span1_of_1 left">
+                                    <h5>Person</h5>
+                                    <div class="book_date">
+                                        <h:inputText value="#{reservationManagedBean.person}"/>
+                                    </div>		
+                                </li>
+                                <li class="span1_of_3">
+                                    <div class="date_btn">
+                                        <h:commandButton value="Search" 
+                                                         action="#{reservationManagedBean.findRoomForReservation
+                                                                   (reservationManagedBean.start, reservationManagedBean.end)}"/>
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                            </h:form>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="rooms text-center">
+            <h:form id="form">
+                <p:panelGrid columns="2" style="margin: 0 auto; margin-top: 50px;" id="booking">
+                    <f:facet name="header">Room</f:facet>
+                    <img src="images/m1.jpg" />
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Room Name :" />
+                            <h:outputText value="Suite Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Room Left" />
+                            <h:outputText value="#{reservationManagedBean.roomsSuite}" style="font-weight: bold"/>
+                            
+                            <h:outputLabel></h:outputLabel>
+                            
+                        </h:panelGrid>
+                    </p:outputPanel>
+                    <img src="images/m2.jpg" />
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Room Name :" />
+                            <h:outputText value="Studio Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Room Left" />
+                            <h:outputText value="#{reservationManagedBean.roomsStudio}" style="font-weight: bold"/>
+                            
+                            <h:outputLabel></h:outputLabel>
+                            
+                        </h:panelGrid>
+                    </p:outputPanel>
+                    <img src="images/m3.jpg" />
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Room Name :" />
+                            <h:outputText value="King Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Room Left" />
+                            <h:outputText value="#{reservationManagedBean.roomsKing}" style="font-weight: bold"/>
+                            
+                            <h:outputLabel></h:outputLabel>
+                            
+                        </h:panelGrid>
+                    </p:outputPanel>
+                    <img src="images/m4.jpg" />
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Room Name :" />
+                            <h:outputText value="Executive Suite Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Room Left" />
+                            <h:outputText value="#{reservationManagedBean.roomExecutive}" style="font-weight: bold"/>
+                            
+                            <h:outputLabel></h:outputLabel>
+                            
+                        </h:panelGrid>
+                    </p:outputPanel>
+                    <img src="images/m5.jpg" />
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Room Name :" />
+                            <h:outputText value="Deluxe King Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Room Left" />
+                            <h:outputText value="#{reservationManagedBean.roomsDeluxeKing}" style="font-weight: bold"/>
+                            
+                            <h:outputLabel></h:outputLabel>
+                            
+                        </h:panelGrid>
+                    </p:outputPanel>
+                    <img src="images/m6.jpg" />
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Room Name :" />
+                            <h:outputText value="Deluxe Double Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Room Left" />
+                            <h:outputText value="#{reservationManagedBean.roomsDouble}" style="font-weight: bold"/>
+
+                            <h:outputLabel></h:outputLabel>
+                           
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </p:panelGrid>
+<!--
+                <p:dialog header="Booking Info" widgetVar="bookingDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="bookingDetail" style="text-align:center;">
+                        <p:panelGrid columns="6">
+                            <p:row>
+                                <p:column colspan="6">
+                                    <h:outputLabel value="Booking Infomation :"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="Date in :"/>
+                                </p:column>
+                                <p:column>
+                                    <p:calendar value="#{reservationManagedBean.dateIn}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputLabel value="Date out :"/>
+                                </p:column>
+                                <p:column>
+                                    <p:calendar value="#{reservationManagedBean.dateOut}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="Booking Date :"/>
+                                </p:column>
+                                <p:column>
+                                    <p:calendar value="#{reservationManagedBean.current}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputLabel value="Request Room :"/>
+                                </p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.reqRoomtype}"/>
+                                </p:column>
+                            </p:row>
+                            
+                            <p:row>
+                                <p:column colspan="6">
+                                    <h:outputLabel value="Customer Infomation :"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Customer Name :" />
+                                </p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.name}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Gender" />
+                                </p:column>
+                                <p:column>
+                                    <h:selectOneRadio value="#{reservationManagedBean.gender}">
+                                        <f:selectItem itemLabel="Male" itemValue="M"/>
+                                        <f:selectItem itemLabel="Female" itemValue="F"/>
+                                    </h:selectOneRadio>
+                                </p:column>                            
+                                <p:column>
+                                    <h:outputText value="DOB" />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar value="#{reservationManagedBean.dob}" pattern="d-MM-yyyy" 
+                                                timeZone="GMT+7"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Id card" />
+                                </p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.idCard}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Address" />
+                                </p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.address}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Tel" />
+                                </p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.tel}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Email" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:commandButton value="#{reservationManagedBean.creatBooking()}"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>-->
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

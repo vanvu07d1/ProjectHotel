@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <h:panelGrid columns="3" style="margin: 0 auto">
+                <p:panelGrid>
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">
+                                Suite
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column colspan="2">
+                            <img src="images/m1.jpg"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>Room Left</p:column>
+                        <p:column>#{reservationManagedBean.roomsSuite}</p:column>
+                    </p:row>
+                    <f:facet name="footer">
+                        <p:row>
+                            <p:column colspan="2" style="margin: 0 auto;">
+                                <p:commandButton value="View" type="button" onclick="PF('m1').show();"/>
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                </p:panelGrid>
+                                               
+                <p:panelGrid>
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">
+                                Studio
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column colspan="2">
+                            <img src="images/m2.jpg"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>Room Left</p:column>
+                        <p:column>#{reservationManagedBean.roomsStudio}</p:column>
+                    </p:row>
+                    <f:facet name="footer">
+                        <p:row>
+                            <p:column colspan="2" style="margin: 0 auto;">
+                                <p:commandButton value="View" type="button" onclick="PF('m1').show();"/>
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                </p:panelGrid>
+                
+                <p:panelGrid>
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">
+                                King
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column colspan="2">
+                            <img src="images/m3.jpg"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>Room Left</p:column>
+                        <p:column>#{reservationManagedBean.roomsKing}</p:column>
+                    </p:row>
+                    <f:facet name="footer">
+                        <p:row>
+                            <p:column colspan="2" style="margin: 0 auto;">
+                                <p:commandButton value="View" type="button" onclick="PF('m1').show();"/>
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                </p:panelGrid>
+                
+                
+                <h:inputHidden></h:inputHidden>
+                <h:inputHidden></h:inputHidden>
+                <h:inputHidden></h:inputHidden>
+                <h:inputHidden></h:inputHidden>
+                <h:inputHidden></h:inputHidden>
+                <h:inputHidden></h:inputHidden>
+                <h:inputHidden></h:inputHidden>
+                <h:inputHidden></h:inputHidden>
+                <h:inputHidden></h:inputHidden>
+                
+                <p:panelGrid>
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">
+                                Executive Suite
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column colspan="2">
+                            <img src="images/m4.jpg"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>Room Left</p:column>
+                        <p:column>#{reservationManagedBean.roomExecutive}</p:column>
+                    </p:row>
+                    <f:facet name="footer">
+                        <p:row>
+                            <p:column colspan="2" style="margin: 0 auto;">
+                                <p:commandButton value="View" type="button" onclick="PF('m1').show();"/>
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                </p:panelGrid>
+                
+                <p:panelGrid>
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">
+                                Deluxe King
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column colspan="2">
+                            <img src="images/m5.jpg"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>Room Left</p:column>
+                        <p:column>#{reservationManagedBean.roomsDeluxeKing}</p:column>
+                    </p:row>
+                    <f:facet name="footer">
+                        <p:row>
+                            <p:column colspan="2" style="margin: 0 auto;">
+                                <p:commandButton value="View" type="button" onclick="PF('m1').show();"/>
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                </p:panelGrid>
+                
+                <p:panelGrid>
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">
+                                Deluxe Double
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column colspan="2">
+                            <img src="images/m6.jpg"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>Room Left</p:column>
+                        <p:column>#{reservationManagedBean.roomsDouble}</p:column>
+                    </p:row>
+                    <f:facet name="footer">
+                        <p:row>
+                            <p:column colspan="2" style="margin: 0 auto;">
+                                <p:commandButton value="View" type="button" onclick="PF('m1').show();"/>
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                </p:panelGrid>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

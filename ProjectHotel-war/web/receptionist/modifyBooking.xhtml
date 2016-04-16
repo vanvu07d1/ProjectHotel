@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!-- start: Css -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/bootstrap.min.css"/>
+        <!-- plugins -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/datatables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/animate.min.css"/>
+        <link href="../asset/css/style.css" rel="stylesheet"/>
+        <!-- end: Css -->
+    </h:head>
+    <h:body id="mimin" class="dashboard">
+        <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+            <div class="col-md-12 nav-wrapper">
+                <div class="navbar-header" style="width:100%;">
+                    <a href="index.html" class="navbar-brand"> 
+                        <b>
+                            <h:outputLabel id="username" value="#{accountManagedBean.username}"/>
+                        </b>
+                    </a>
+
+                    <ul class="nav navbar-nav navbar-right user-nav">
+                        <li><a>
+                                <h:form>
+                                    <h:commandButton action="#{accountManagedBean.logout()}" value="Logout"/>
+                                </h:form>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- end: Header -->
+
+        <div class="container-fluid mimin-wrapper">
+
+            <!-- start:Left Menu -->
+            <div id="left-menu">
+                <div class="sub-left-menu scroll">
+                    <ul class="nav nav-list">
+                        <li class="user-name">
+                            <span>
+                                Welcome #{session.getAttribute("username")}
+                            </span>
+                        </li>
+                        <li class="ripple">
+                            <a href="receptionist.xhtml"> Main 
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="booking.xhtml"> Booking room
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="active ripple">
+                            <a href="manageBooking.xhtml"> Manage Booking
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="checkin.xhtml"> Check in
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="managecheckin.xhtml"> Manage Check in
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="checkout.xhtml"> Check out 
+                                <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="service.xhtml"> Service  
+                                <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="usedservice.xhtml"> Use Service
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="profile.xhtml"> Profile
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>          
+                    </ul>
+                </div>
+            </div>
+            <!-- end: Left Menu -->
+
+            <!-- start: Content -->
+            <div id="content">
+                <div class="col-md-12 top-20 padding-0">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <h:form id="booking">
+                                    <p:outputPanel id="editDetail" style="text-align:center;">
+                                        <p:panelGrid  columns="4" style="margin: 0 auto;">
+                                            <f:facet name="header">Booking information</f:facet>
+                                            <h:outputLabel value="Id :" style="color: #08BF51;font-weight: bold;"/>
+                                            <h:inputText value="#{reservationManagedBean.reservationId}"/>
+
+                                            <h:outputLabel value="Booking Date :" style="color: #08BF51;font-weight: bold;"/>
+                                            <p:calendar value="#{reservationManagedBean.bookingDate}" pattern="d-MM-yyy" timeZone="GMT+7">
+                                                
+                                            </p:calendar> 
+
+                                            <h:outputLabel value="Date In :" style="color: #08BF51;font-weight: bold;"/>
+                                            <p:calendar value="#{reservationManagedBean.dateIn}" pattern="d-MM-yyyy"
+                                                        timeZone="GMT+7" mindate="#{reservationManagedBean.current}"/>
+
+                                            <h:outputLabel value="Date Out :" style="color: #08BF51;font-weight: bold;" />
+                                            <p:calendar value="#{reservationManagedBean.dateOut}" pattern="d-MM-yyyy"
+                                                        timeZone="GMT+7" mindate="#{reservationManagedBean.current}"/>
+
+                                            <h:outputLabel value="Number of People :" style="color: #08BF51;font-weight: bold;"/>
+                                            <h:inputText value="#{reservationManagedBean.numberOfPeople}"/>
+
+                                            <h:outputLabel value="Customer id :" style="color: #08BF51;font-weight: bold;"/>
+                                            <h:inputText value="#{reservationManagedBean.cusId}"/>
+
+                                            <h:outputLabel value="Room id :" style="color: #08BF51;font-weight: bold;"/>
+                                            <h:inputText value="#{reservationManagedBean.roid}"/>
+
+                                            <h:outputLabel value="Request Roomtype :" style="color: #08BF51;font-weight: bold;"/>
+                                            <h:inputText value="#{reservationManagedBean.reqRoomtype}"/>
+
+                                            <h:commandButton value="Edit" action="#{reservationManagedBean.editBooking()}"/> 
+                                            <h:commandButton value="Delete" action="#{reservationManagedBean.deleteReservation
+                                                                                      (reservationManagedBean.reservationId)}"/>   
+                                        </p:panelGrid>
+                                    </p:outputPanel>                                       
+                            </h:form>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+
+    </h:body>
+</html>
+

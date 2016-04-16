@@ -1,0 +1,529 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>SKY HOTEL</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'/>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="top-header">
+                <div class="container">
+                    <div class="logo">
+                        <a href="index.html"><img src="images/logo.png"/></a>
+                    </div>
+                    <span class="menu"> </span>
+                    <div class="m-clear"></div>
+                    <div class="top-menu">
+                        <ul>
+                            <li><a class="scroll" href="index.html">HOME</a></li>
+                            <li><a class="scroll" href="aboutsky.html">ABOUT SKY</a></li>
+                            <li class="active"><a href="booking.xhtml">BOOKING</a></li>
+                            <li><a class="scroll" href="promotion.xhtml">PROMOTION</a></li>
+                            <li><a class="scroll" href="login.xhtml">LOGIN</a></li>
+                        </ul>
+                        <script>
+                            $("span.menu").click(function () {
+                                $(".top-menu ul").slideToggle(200);
+                            });
+                        </script>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="banner">
+                <div class="banner-info text-center">
+                    <h1>SKY HOTEL</h1>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <div class="online_reservation">
+            <div class="b_room">
+                <div class="booking_room">
+                    <div class="reservation">
+                        <ul>
+                            <h:form>
+                                <li  class="span1_of_1 left">
+                                    <h5>Date in</h5>
+                                    <p:calendar value="#{reservationManagedBean.start}" pattern="d-MM-yyyy"
+                                                timeZone="GMT+7" mindate="#{reservationManagedBean.current}"/>
+
+                                </li>
+                                <li  class="span1_of_1 left">
+                                    <h5>Date out</h5>
+                                    <p:calendar value="#{reservationManagedBean.end}" pattern="d-MM-yyyy"
+                                                timeZone="GMT+7" mindate="#{reservationManagedBean.current}"/>
+                                </li>
+                                <li  class="span1_of_1 left">
+                                    <h5>Person</h5>
+                                    <div class="book_date">
+                                        <h:inputText value="#{reservationManagedBean.person}"/>
+                                    </div>		
+                                </li>
+                                <li class="span1_of_3">
+                                    <div class="date_btn">
+                                        <h:commandButton value="Search" 
+                                                         action="#{reservationManagedBean.findRoomForReservation
+                                                                   (reservationManagedBean.start, reservationManagedBean.end)}"/>
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                            </h:form>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="rooms text-center">
+            <h:form>
+                <h:panelGrid columns="3" style="margin: 0 auto; margin-top: 50px;">
+                    <p:panelGrid>
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2">
+                                    Suite
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:column colspan="2">
+                                <img src="images/m1.jpg"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Room Left</p:column>
+                            <p:column>#{reservationManagedBean.roomsSuite}</p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="2" style="margin: 0 auto;">
+                                    <p:commandButton value="View" type="button" onclick="PF('m1').show();"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+
+                    <p:panelGrid>
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2">
+                                    Studio
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:column colspan="2">
+                                <img src="images/m2.jpg"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Room Left</p:column>
+                            <p:column>#{reservationManagedBean.roomsStudio}</p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="2" style="margin: 0 auto;">
+                                    <p:commandButton value="View" type="button" onclick="PF('m2').show();"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+
+                    <p:panelGrid>
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2">
+                                    King
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:column colspan="2">
+                                <img src="images/m3.jpg"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Room Left</p:column>
+                            <p:column>#{reservationManagedBean.roomsKing}</p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="2" style="margin: 0 auto;">
+                                    <p:commandButton value="View" type="button" onclick="PF('m3').show();"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+
+
+                    <h:inputHidden></h:inputHidden>
+                    <h:inputHidden></h:inputHidden>
+                    <h:inputHidden></h:inputHidden>
+                    <h:inputHidden></h:inputHidden>
+                    <h:inputHidden></h:inputHidden>
+                    <h:inputHidden></h:inputHidden>
+                    <h:inputHidden></h:inputHidden>
+                    <h:inputHidden></h:inputHidden>
+                    <h:inputHidden></h:inputHidden>
+
+                    <p:panelGrid>
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2">
+                                    Executive Suite
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:column colspan="2">
+                                <img src="images/m4.jpg"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Room Left</p:column>
+                            <p:column>#{reservationManagedBean.roomExecutive}</p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="2" style="margin: 0 auto;">
+                                    <p:commandButton value="View" type="button" onclick="PF('m4').show();"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+
+                    <p:panelGrid>
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2">
+                                    Deluxe King
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:column colspan="2">
+                                <img src="images/m5.jpg"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Room Left</p:column>
+                            <p:column>#{reservationManagedBean.roomsDeluxeKing}</p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="2" style="margin: 0 auto;">
+                                    <p:commandButton value="View" type="button" onclick="PF('m5').show();"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+
+                    <p:panelGrid>
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2">
+                                    Deluxe Double
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:column colspan="2">
+                                <img src="images/m6.jpg"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Room Left</p:column>
+                            <p:column>#{reservationManagedBean.roomsDouble}</p:column>
+                        </p:row>
+                        <f:facet name="footer">
+                            <p:row>
+                                <p:column colspan="2" style="margin: 0 auto;">
+                                    <p:commandButton value="View" type="button" onclick="PF('m6').show();"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+                    
+                    
+                </h:panelGrid>
+                
+                <!--Dialog-->
+                
+                <p:dialog header="Room info" widgetVar="m1" modal="true" height="400" width="700" resizable="false">
+                    <img src="images/m1.jpg" />
+                    <p:outputPanel >
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Room Name " />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Suite Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Max people" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="2" style="font-weight: bold"/>
+
+                            <h:outputText value="Price" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="$100" style="font-weight: bold"/>
+
+                            <h:outputText value="Equipment"/>
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Air conditioning , TV 
+                                          Mini Bar , ironing board
+                                          hair dryer , Free Wifi"/>
+                            
+                            <p:commandButton value="Booking" type="button" onclick="PF('b1').show();"/>
+
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+                <p:dialog header="Room info" widgetVar="m2" modal="true" height="400" width="700" resizable="false">
+                    <img src="images/m2.jpg" />
+                    <p:outputPanel >
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Room Name " />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Studio Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Max people" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="6" style="font-weight: bold"/>
+
+                            <h:outputText value="Price" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="$300" style="font-weight: bold"/>
+
+                            <h:outputText value="Equipment"/>
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Air conditioning , TV 
+                                          Mini Bar , ironing board
+                                          hair dryer , Free Wifi"/>
+                            
+                            <p:commandButton value="Booking" type="button" onclick="PF('b1').show();"/>
+
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>   
+                <p:dialog header="Room info" widgetVar="m3" modal="true" height="400" width="700" resizable="false">
+                    <img src="images/m3.jpg" />
+                    <p:outputPanel >
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Room Name " />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="King Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Max people" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="4" style="font-weight: bold"/>
+
+                            <h:outputText value="Price" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="$200" style="font-weight: bold"/>
+
+                            <h:outputText value="Equipment"/>
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Air conditioning , TV 
+                                          Mini Bar , ironing board
+                                          hair dryer , Free Wifi"/>
+                            
+                            <p:commandButton value="Booking" type="button" onclick="PF('b1').show();"/>
+
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>   
+                <p:dialog header="Room info" widgetVar="m4" modal="true" height="400" width="700" resizable="false">
+                    <img src="images/m4.jpg" />
+                    <p:outputPanel >
+                        <p:panelGrid columns="3">
+                            <h:outputText value="Room Name " />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Executive Suite Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Max people" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="8" style="font-weight: bold"/>
+
+                            <h:outputText value="Price" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="$500" style="font-weight: bold"/>
+
+                            <h:outputText value="Equipment"/>
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Air conditioning , TV 
+                                          Mini Bar , ironing board
+                                          hair dryer , Free Wifi"/>
+                            
+                            <p:commandButton value="Booking" type="button" onclick="PF('b1').show();"/>
+
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>   
+                <p:dialog header="Room info" widgetVar="m5" modal="true" height="400" width="700" resizable="false">
+                    <img src="images/m5.jpg" />
+                    <p:outputPanel >
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Room Name " />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Deluxe King Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Max people" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="3" style="font-weight: bold"/>
+
+                            <h:outputText value="Price" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="$150" style="font-weight: bold"/>
+
+                            <h:outputText value="Equipment"/>
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Air conditioning , TV 
+                                          Mini Bar , ironing board
+                                          hair dryer , Free Wifi"/>
+                            
+                            <p:commandButton value="Booking" type="button" onclick="PF('b1').show();"/>
+
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>   
+                <p:dialog header="Room info" widgetVar="m6" modal="true" height="400" width="700" resizable="false">
+                    <img src="images/m6.jpg" />
+                    <p:outputPanel >
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Room Name " />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Deluxe Double Room" style="font-weight: bold"/>                           
+
+                            <h:outputText value="Max people" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="6" style="font-weight: bold"/>
+
+                            <h:outputText value="Price" />
+                            <h:outputText></h:outputText>
+                            <h:outputText value="$400" style="font-weight: bold"/>
+
+                            <h:outputText value="Equipment"/>
+                            <h:outputText></h:outputText>
+                            <h:outputText value="Air conditioning , TV 
+                                          Mini Bar , ironing board
+                                          hair dryer , Free Wifi"/>
+                            
+                            <p:commandButton value="Booking" type="button" onclick="PF('b1').show();"/>
+
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>   
+
+                <p:dialog header="Room info" widgetVar="b1" modal="true" height="500" width="800" resizable="false">
+                    
+                    <h:outputLabel value="Suite Room"/>
+                    <p:outputPanel style="text-align:center;" >
+                        <p:panelGrid >
+                            <p:row>
+                                <p:column colspan="4" style="font-weight: bold;color: #00c">
+                                    Booking information
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="font-weight: bold;">Date in</p:column>
+                                <p:column>
+                                    <p:calendar value="#{reservationManagedBean.start}" pattern="d-MM-yyyy"
+                                                timeZone="GMT+7" mindate="#{reservationManagedBean.current}">
+                                    </p:calendar> 
+                                </p:column>
+                                <p:column style="font-weight: bold;">Date out</p:column>
+                                <p:column>
+                                    <p:calendar value="#{reservationManagedBean.end}" pattern="d-MM-yyyy"
+                                                timeZone="GMT+7" mindate="#{reservationManagedBean.current}">
+                                    </p:calendar> 
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="font-weight: bold;">Person</p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.person}" />
+                                </p:column>
+                                <p:column style="font-weight: bold;">Request RoomType</p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.reqRoomtype}"/>                         
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="4" style="font-weight: bold;color: #00c">
+                                    Customer information
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column style="font-weight: bold;">Customer Name</p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.name}" required="true" />
+                                </p:column>            
+                                <p:column style="font-weight: bold;">Gender</p:column>
+                                <p:column>
+                                    <h:selectOneRadio value="#{reservationManagedBean.gender}" required="true">
+                                        <f:selectItem itemLabel="Male" itemValue="M"/>
+                                        <f:selectItem itemLabel="Female" itemValue="F"/>
+                                    </h:selectOneRadio>
+                                </p:column> 
+                            </p:row>
+
+                            <p:row>
+                                <p:column style="font-weight: bold;">DOB</p:column>
+                                <p:column>
+                                    <p:calendar value="#{reservationManagedBean.dob}" pattern="d-MM-yyyy"
+                                                timeZone="GMT+7" locale="de" navigator="true" required="true">
+
+                                    </p:calendar> 
+                                </p:column>
+                                <p:column style="font-weight: bold;">Idcrad</p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.idCard}" required="true"/>
+                                </p:column>  
+                            </p:row>
+
+                            <p:row>
+                                <p:column style="font-weight: bold;">Tel</p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.tel}" required="true"/>
+                                </p:column>
+                                <p:column style="font-weight: bold;">Address</p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.address}" required="true"/>
+                                </p:column>  
+                            </p:row>
+
+                            <p:row>
+                                <p:column style="font-weight: bold;">Email</p:column>
+                                <p:column>
+                                    <h:inputText value="#{reservationManagedBean.email}" required="true"/>
+                                </p:column>                                                  
+                            </p:row>  
+                            <p:row>
+                                <p:column colspan="4">
+                                    <h:commandButton value="Booking" action="#{reservationManagedBean.creatBooking()}"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+
+                
+
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

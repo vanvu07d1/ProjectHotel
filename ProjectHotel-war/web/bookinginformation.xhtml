@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>SKY HOTEL</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'/>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="top-header">
+                <div class="container">
+                    <div class="logo">
+                        <a href="index.html"><img src="images/logo.png"/></a>
+                    </div>
+                    <span class="menu"> </span>
+                    <div class="m-clear"></div>
+                    <div class="top-menu">
+                        <ul>
+                            <li><a class="scroll" href="index.html">HOME</a></li>
+                            <li><a class="scroll" href="aboutsky.html">ABOUT SKY</a></li>
+                            <li class="active"><a href="booking.xhtml">BOOKING</a></li>
+                            <li><a class="scroll" href="promotion.xhtml">PROMOTION</a></li>
+                            <li><a class="scroll" href="login.xhtml">LOGIN</a></li>
+                        </ul>
+                        <script>
+                            $("span.menu").click(function () {
+                                $(".top-menu ul").slideToggle(200);
+                            });
+                        </script>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="banner">
+                <div class="banner-info text-center">
+                    <h1>SKY HOTEL</h1>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <!---->        
+        <div class="rooms text-center">
+            <h:form>
+                <h2 style="margin: 0 auto">Thank for your booking</h2>
+                <p:outputPanel >
+                    <p:panelGrid style="margin: 0 auto;margin-top: 60px;" >                        
+
+                        <p:row>
+                            <p:column colspan="2">Booking information</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Date in</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.start}">
+                                    <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                </h:outputLabel>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Date out</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.end}">
+                                    <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                </h:outputLabel>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Person</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.person}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Request Room</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.reqRoomtype}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">Customer information</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Full Name</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.name}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Gender</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.gender}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>DOB</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.dob}">
+                                    <f:convertDateTime pattern="d-MM-yyyy" timeZone="GMT+7"/>
+                                </h:outputLabel>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Id card</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.idCard}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Tel</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.tel}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>Address</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.address}"/>
+                            </p:column>
+                        </p:row>            
+                        <p:row>
+                            <p:column>Email</p:column>
+                            <p:column>
+                                <h:outputLabel value="#{reservationManagedBean.email}"/> 
+                            </p:column>
+                        </p:row>   
+                    </p:panelGrid>
+                </p:outputPanel>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

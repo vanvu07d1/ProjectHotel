@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!-- start: Css -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/bootstrap.min.css"/>
+        <!-- plugins -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/datatables.bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../asset/css/plugins/animate.min.css"/>
+        <link href="../asset/css/style.css" rel="stylesheet"/>
+        <!-- end: Css -->
+    </h:head>
+    <h:body id="mimin" class="dashboard">
+        <!-- start: Header -->
+        <nav class="navbar navbar-default header navbar-fixed-top">
+            <div class="col-md-12 nav-wrapper">
+                <div class="navbar-header" style="width:100%;">
+                    <a href="index.html" class="navbar-brand"> 
+                        <b>
+                            <h:outputLabel id="username" value="#{accountManagedBean.username}"/>
+                        </b>
+                    </a>
+
+                    <ul class="nav navbar-nav navbar-right user-nav">
+                        <li><a>
+                                <h:form>
+                                    <h:commandButton action="#{accountManagedBean.logout()}" value="Logout"/>
+                                </h:form>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- end: Header -->
+
+        <div class="container-fluid mimin-wrapper">
+
+            <!-- start:Left Menu -->
+            <div id="left-menu">
+                <div class="sub-left-menu scroll">
+                    <ul class="nav nav-list">
+                        <li class="user-name">
+                            <span>
+                                Welcome #{session.getAttribute("username")}
+                            </span>
+                        </li>
+                        <li class="ripple">
+                            <a href="staff.xhtml"> Main 
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="active ripple">
+                            <a href="room.xhtml"> Manage Room
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="customer.xhtml"> Manage Customer
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                        <li class="ripple">
+                            <a href="promotion.xhtml"> Manage promotion  
+                                <span class="fa-angle-right fa right-arrow text-right"></span> </a>
+                        </li>
+                        
+                        <li class="ripple">
+                            <a href="profile.xhtml"> Profile
+                                <span class="fa-angle-right fa right-arrow text-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- end: Left Menu -->
+
+            <!-- start: Content -->
+            <div id="content">
+                <div class="col-md-12 top-20 padding-0">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            
+                            <h:form>
+                                
+                                    <p:panelGrid columns="4">
+                                        <f:facet name="header">Add New Customer</f:facet>
+                                        <h:outputLabel for="roomName" value="Room Name :"/>
+                                        <h:inputText id="roomName" value="#{roomManagedBean.roomName}"/>
+                                        <h:outputLabel for="bed" value="Number of bed :"/>
+                                        <h:inputText id="bed" value="#{roomManagedBean.numberOfBed}"/>
+                                        <h:outputLabel for="phone" value="Room Phone :"/>
+                                        <h:inputText id="phone" value="#{roomManagedBean.roomPhone}"/>
+                                        <h:outputLabel for="description" value="Description :"/>
+                                        <h:inputText id="description" value="#{roomManagedBean.description}"/>
+                                        <h:outputLabel for="status" value="Status :"/>
+                                        <h:inputText id="status" value="#{roomManagedBean.status}"/>
+                                        <h:outputLabel for="type" value="Room Type"/>
+                                        <h:selectOneMenu value="#{roomManagedBean.selectRoomtype}">
+                                            <f:selectItems value="#{roomTypeManagedBean.findAllRoomtype()}" var="r"
+                                                           itemLabel="#{r.roomtypeName}" itemValue="#{r.roomtypeId}"/>
+                                        </h:selectOneMenu>
+                                        <h:commandButton value="Add" action="#{roomManagedBean.addNewRoom()}" onclick="myFunction()"/>
+                                    </p:panelGrid>
+                                
+                            </h:form>
+
+                            <h:form id="form">
+                                <p:dataTable id="singleDT" var="r" value="#{roomManagedBean.findAllRoom()}" selectionMode="single" 
+                                             selection="#{roomManagedBean.selectRoom}" rowKey="#{r.roomId}"  rows="10" paginator="true">
+                                    <p:column headerText="Id">
+                                        #{r.roomId}
+                                    </p:column>
+                                    <p:column headerText="Room Name">
+                                        #{r.roomName}
+                                    </p:column>
+                                    <p:column headerText="Room Phone">
+                                        #{r.roomPhone}
+                                    </p:column>
+                                    <p:column headerText="Status">
+                                        #{r.status}
+                                    </p:column>
+                                    <p:column headerText="Room Type">
+                                        #{r.roomTypeId.roomtypeName}
+                                    </p:column>
+                                    <p:column headerText="Action">
+                                        <p:commandButton value="Edit And Delete" action="#{roomManagedBean.edit(r.roomId)}"
+                                                         process="singleDT" update=":form:editDetail" icon="ui-icon-edit" 
+                                                         oncomplete="PF('editDialog').show()"/>
+                                        
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <p:commandButton process="singleDT" update=":form:roomDetail" icon="ui-icon-search" value="View" oncomplete="PF('roomDialog').show()" />
+                                    </f:facet>
+                                </p:dataTable>
+
+                                <!--View room-->
+                                <p:dialog header="Room Info" widgetVar="roomDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:outputPanel id="roomDetail" style="text-align:center;">
+                                        <p:panelGrid  columns="2" rendered="#{not empty roomManagedBean.selectRoom}">
+
+                                            <h:outputText value="Id:" />
+                                            <h:inputText value="#{roomManagedBean.selectRoom.roomId}" />
+
+                                            <h:outputText value="Room Name" />
+                                            <h:inputText value="#{roomManagedBean.selectRoom.roomName}" />
+
+                                            <h:outputText value="Number of bed" />
+                                            <h:inputText value="#{roomManagedBean.selectRoom.numberOfBed}" />
+
+                                            <h:outputText value="Room Phone" />
+                                            <h:inputText value="#{roomManagedBean.selectRoom.roomPhone}" />
+
+                                            <h:outputText value="Status" />
+                                            <h:inputText value="#{roomManagedBean.selectRoom.status}" />
+                                        </p:panelGrid>
+                                    </p:outputPanel>
+                                </p:dialog>
+
+                                <p:dialog header="Room Info" widgetVar="editDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:outputPanel id="editDetail" style="text-align:center;">
+                                        <p:panelGrid  columns="2">
+
+                                            <h:outputText value="Id:" />
+                                            <h:inputText value="#{roomManagedBean.roomId}" />
+
+                                            <h:outputText value="Room Name" />
+                                            <h:inputText value="#{roomManagedBean.roomName}" />
+
+                                            <h:outputText value="Number of bed" />
+                                            <h:inputText value="#{roomManagedBean.numberOfBed}" />
+
+                                            <h:outputText value="Room Phone" />
+                                            <h:inputText value="#{roomManagedBean.roomPhone}" />
+
+                                            <h:outputText value="Status" />
+                                            <h:inputText value="#{roomManagedBean.status}" />
+
+                                            <h:outputText value="Room Type" />
+                                            <h:selectOneMenu value="#{roomManagedBean.selectRoomtype}">
+                                                <f:selectItems value="#{roomTypeManagedBean.findAllRoomtype()}" var="r"
+                                                               itemLabel="#{r.roomtypeName}" itemValue="#{r.roomtypeId}"/>
+                                            </h:selectOneMenu>
+                                            <h:commandButton value="Edit" action="#{roomManagedBean.editRoom()}"/>
+                                            <h:commandButton value="Delete" action="#{roomManagedBean.deleteRoom(roomManagedBean.roomId)}"/>
+
+                                        </p:panelGrid>
+                                    </p:outputPanel>
+                                </p:dialog>
+
+                            </h:form>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <!-- end: content -->
+
+
+        <!-- start: Javascript -->
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/jquery.ui.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+
+        <!-- plugins -->
+        <script src="../js/plugins/moment.min.js"></script>
+        <script src="../js/plugins/jquery.datatables.min.js"></script>
+        <script src="../js/plugins/datatables.bootstrap.min.js"></script>
+        <script src="../js/plugins/jquery.nicescroll.js"></script>
+
+        <!-- custom -->
+        <script>
+                                            function myFunction() {
+                                                location.reload();
+                                            }
+        </script>
+
+        <!-- end: Javascript -->
+    </h:body>
+</html>
+
